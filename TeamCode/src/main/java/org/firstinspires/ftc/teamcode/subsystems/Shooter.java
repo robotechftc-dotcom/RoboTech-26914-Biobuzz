@@ -22,7 +22,7 @@ public class Shooter {
     PIDFCoefficients coefficients = new PIDFCoefficients(0, 0, 0, 0);
     EasyPIDFController controller = new EasyPIDFController(coefficients);
 
-
+//caca
 
     public Shooter(HardwareMap hardwareMap) {
         shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000).setDeadband(0.01);
