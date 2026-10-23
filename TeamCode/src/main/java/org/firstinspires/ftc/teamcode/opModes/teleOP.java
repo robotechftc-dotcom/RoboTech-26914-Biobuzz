@@ -1,16 +1,13 @@
 package org.firstinspires.ftc.teamcode.opModes;
 
-import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 //commit
-@Configurable
 @TeleOp(name = "TeleOp")
 public class teleOP extends OpMode {
 
@@ -36,7 +33,9 @@ public class teleOP extends OpMode {
                 gamepad1.right_stick_x * 0.3
         );
         if(gamepad1.circle) {
-            shuter.ShooterRPM(3000);
+            shuter.ShooterRPM(3000.0);
+        } else {
+            shuter.ShooterRPM(0.0);
         }
         Inteiki.teleop();
 
