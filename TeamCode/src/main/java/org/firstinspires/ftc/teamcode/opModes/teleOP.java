@@ -13,8 +13,8 @@ public class teleOP extends OpMode {
 
     private Follower follower;
     private Intake Inteiki;
-
     private Shooter shuter;
+    private Boolean Test = true;
 
 
     @Override
@@ -32,7 +32,14 @@ public class teleOP extends OpMode {
                 -gamepad1.left_stick_x * 0.3,
                 gamepad1.right_stick_x * 0.3
         );
-        if(gamepad1.circle) {
+        if(gamepad1.circleWasPressed()) {
+            if (Test) {
+                Test = false;
+            } else {
+                Test = true;
+            }
+        }
+        if(Test) {
             shuter.ShooterRPM(3000.0);
         } else {
             shuter.ShooterRPM(0.0);
