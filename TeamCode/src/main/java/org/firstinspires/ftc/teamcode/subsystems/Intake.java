@@ -54,15 +54,11 @@ public class Intake{
         Blocker.setState(est ? "Aberto" : "Fechado");
     } //recomendo depois saberem usar desta forma: se est é verdadeiro, o estado é aberto, se não, fechado. menor e mais fácil de entender
 
-    public void setDumperOpen(boolean est){
+    public void setDumperOpen(boolean est) {
         Dumper.setState(est ? "Aberto" : "Fechado");
     }
-    public double getCurrentINT1() {
-        return motorIntake1.getCurrentAmps();
-    }
-
-    public double getCurrentINT2() {
-        return motorIntake2.getCurrentAmps();
+    public double getAmp(){
+        return Intake.getCurrentAmps();
     }
     public void getTelemetry(Telemetry telemetry){
         telemetry.addData("Intake amp", Intake.getCurrentAmps());
