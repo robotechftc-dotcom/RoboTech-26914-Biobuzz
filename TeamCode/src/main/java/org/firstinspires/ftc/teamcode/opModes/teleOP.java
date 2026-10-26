@@ -33,7 +33,7 @@ public class teleOP extends OpMode {
 
         follower.manual(-pad.leftStickY() * 0.3, -pad.leftStickX() * 0.3, pad.rightStickX() * 0.3);
 
-        shooter.ShooterRPM(pad.bToggle() ? 3000 : 0);
+        shooter.setRPM(pad.bToggle() ? 3000 : 0);
 
         if (pad.x()) {
             if (backA) intake.setAllPower(1);
@@ -50,6 +50,9 @@ public class teleOP extends OpMode {
 
         if (!first && intake.getAmp() > 5) backA = false;
         first = false;
+
+        telemetry.addData("RPM shooter",shooter.getRPM());
+
         telemetry.update();
         follower.update();
     }

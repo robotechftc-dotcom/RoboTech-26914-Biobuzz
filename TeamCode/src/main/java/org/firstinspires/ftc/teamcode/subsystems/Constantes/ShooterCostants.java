@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.subsystems.Constantes;
+
+import com.acmerobotics.dashboard.config.Config;
+
 //Meninos, atenção a -> organização de código!! <-
 //Criamos uma classe onde abrange nossas constantes. Assim é até mais fácil de configurar no dashboard, utilizando anotação
- //@Config
+@Config
 
 public class ShooterCostants {
     public static double kP = 0;

@@ -8,7 +8,6 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
 import dev.easyfamily.EasyStack.control.EasyPIDCoefficients;
 import dev.easyfamily.EasyStack.control.EasyPIDController;
@@ -39,9 +38,9 @@ public class Shooter {
                 .setVelocityFF(ffController) //setamos o FF controller
                 .stopAndResetEncoder(); //por segurança paramos e resetamos o encoder
     }
-    public void ShooterRPM(double rpm) {
-        shooter.setRPM(rpm);
-    }
+    public void setRPM(double rpm) {shooter.setRPM(rpm);}
+
+    public double getRPM() {return shooter.getRPM();}
 }//por fim terminamos. mas recomendo fortemente implementar outras funções se necessário aqui.
 
 
