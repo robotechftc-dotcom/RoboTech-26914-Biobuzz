@@ -8,100 +8,64 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-//commit
-public class Intake {
-    DcMotorEx INT1;
-    DcMotorEx INT2;
 
-    Servo Trava;
+
+import dev.easyfamily.EasyStack.hardware.Motors.EasyMotor;
+import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorGroup;
+import dev.easyfamily.EasyStack.hardware.Servo.EasyServo;
+
+
+//commit
+public class Intake{
+    /**DcMotorEx INT1; //apagamos o dcmotorex e declaramos os easy motors
+    DcMotorEx INT2;
+     **/
+
+    EasyMotor motorIntake1, motorIntake2;
+    EasyMotorGroup Intake; //Declaramos o agrupamento desses motores.
+    /**Servo Trava;
 
     Servo Dumper;
-
-    private Gamepad gamepad1;
-
-    private boolean T = true;
-
-    private boolean D = false;
-
-    private boolean Domper = false;
-
-    private boolean BackA = true;
-
-    private boolean timebool = true;
-    public Intake(HardwareMap hardwareMap, Gamepad gamepad) {
-        INT1 = hardwareMap.get(DcMotorEx.class, "INT1");
-        INT2 = hardwareMap.get(DcMotorEx.class, "INT2");
-        Trava = hardwareMap.get(Servo.class, "INTtrava");
-        Dumper = hardwareMap.get(Servo.class, "ServoFlor");
-        this.gamepad1 = gamepad;
+     **/
+    EasyServo Dumper; //Igualmente declaramos servos da nossa lib, porém sem agrupamento, já que são subsistemas totalmente diferentes e independentes.
+    EasyServo Blocker;
+    public Intake(HardwareMap hardwareMap) {
+        motorIntake1 = new EasyMotor(hardwareMap, "INT1"); //declaramos os motores individuais
+        motorIntake2 = new EasyMotor(hardwareMap, "INT2");
+        Intake = new EasyMotorGroup(motorIntake1, motorIntake2).reverse(); //vi que estavam -1, então declaramos todos como reverso.
+        Blocker = new EasyServo(hardwareMap, "INTTrava")
+                .addState("Aberto", 1) //adicionamos estados abertos e fechados
+                .addState("Fechado", 0);
+        Dumper = new EasyServo(hardwareMap, "Dumperr")
+                .addState("Aberto", 1)
+                .addState("Fechado", 0);
     }
-    public void AllOn(double vel) {
-        INT1.setPower(-vel);
-        INT2.setPower(-vel);
+    //retirei TODAS funções que utilizavam o gamepad. Sim, eu usava na decode mas descobri que é uma má prática.
+    //colocamos funções com nomes literais (setters e getters) e sem entradas.
+    public void setAllPower(double vel) {
+        Intake.setPower(1);
     }
-    public void InOn(double vel) {INT1.setPower(-vel);}
-    public void BackOn(double vel) {INT2.setPower(-vel);}
+    public void setInPower(double vel) {motorIntake1.setPower(vel);}
+    public void setBackPower(double vel) {motorIntake2.setPower(vel);}
 
-    public void Trava(boolean est){
-        if (est) {
-            Trava.setPosition(0.5);
-        } else {
-            Trava.setPosition(0);
-        }
-    }
+    public void setTravaOpen(boolean est){
+        Blocker.setState(est ? "Aberto" : "Fechado");
+    } //recomendo depois saberem usar desta forma: se est é verdadeiro, o estado é aberto, se não, fechado. menor e mais fácil de entender
 
-    public void Dumper(boolean est){
-        if (est) {
-            Dumper.setPosition(0);
-        } else {
-            Dumper.setPosition(1);
-        }
+    public void setDumperOpen(boolean est){
+        Dumper.setState(est ? "Aberto" : "Fechado");
     }
-    public double getmAhINT1() {
-        return INT1.getCurrent(CurrentUnit.MILLIAMPS);
+    public double getCurrentINT1() {
+        return motorIntake1.getCurrentAmps();
     }
 
-    public double getmAhINT2() {
-        return INT2.getCurrent(CurrentUnit.MILLIAMPS);
+    public double getCurrentINT2() {
+        return motorIntake2.getCurrentAmps();
     }
-
-    public void teleop() {
-        if(gamepad1.square) {
-            if (BackA) {
-                AllOn(1);
-            } else {
-                BackOn(0);
-                InOn(1);
-            }
-        } else {
-            InOn(gamepad1.left_trigger);
-            BackOn(gamepad1.right_trigger);
-        }
-        if(gamepad1.cross) {
-            Trava(false);
-            AllOn(1);
-            BackA = true;
-        } else {
-            Trava(true);
-        }
-        if(gamepad1.triangleWasPressed()) {
-            if (Domper) {
-                Domper = false;
-            } else {
-                Domper = true;
-            }
-        }
-
-        if (Domper == true) {
-            Dumper(true);
-        } else {
-            Dumper(false);
-        }
-        if (timebool){
-            timebool = false;
-        } else if (getmAhINT2() > 5000) {
-            BackA = false;
-        }
+    public void getTelemetry(Telemetry telemetry){
+        telemetry.addData("Intake amp", Intake.getCurrentAmps());
+        telemetry.update();
     }
 }
