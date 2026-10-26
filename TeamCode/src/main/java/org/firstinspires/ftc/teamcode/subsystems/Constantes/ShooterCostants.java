@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 
 public class ShooterCostants {
-    public static double kP = 0;
+    public static double kP = 0.001;
     public static double kI = 0;
     public static double kD = 0;
     public static double kS = 0;

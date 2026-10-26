@@ -35,6 +35,8 @@ public class teleOP extends OpMode {
 
         shooter.setRPM(pad.bToggle() ? 3000 : 0);
 
+        telemetry.addData("b is pressed", pad.bToggle());
+
         if (pad.x()) {
             if (backA) intake.setAllPower(1);
             else { intake.setBackPower(0); intake.setInPower(1); }

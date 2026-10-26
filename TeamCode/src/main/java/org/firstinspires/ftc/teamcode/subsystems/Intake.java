@@ -38,7 +38,7 @@ public class Intake{
         Blocker = new EasyServo(hardwareMap, "INTtrava")
                 .addState("Aberto", 1) //adicionamos estados abertos e fechados
                 .addState("Fechado", 0);
-        Dumper = new EasyServo(hardwareMap, "Dumper")
+        Dumper = new EasyServo(hardwareMap, "Dumper  ")
                 .addState("Aberto", 1)
                 .addState("Fechado", 0);
     }

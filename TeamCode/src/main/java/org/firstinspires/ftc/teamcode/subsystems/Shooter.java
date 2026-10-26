@@ -9,6 +9,8 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 import dev.easyfamily.EasyStack.control.EasyPIDCoefficients;
 import dev.easyfamily.EasyStack.control.EasyPIDController;
 import dev.easyfamily.EasyStack.feedforward.FFCoefficients;
@@ -41,6 +43,10 @@ public class Shooter {
     public void setRPM(double rpm) {shooter.setRPM(rpm);}
 
     public double getRPM() {return shooter.getRPM();}
+
+    public double getPower() {return shooter.getPower();}
+
+    public double getCurrent() {return shooter.getCurrent(CurrentUnit.MILLIAMPS);}
 }//por fim terminamos. mas recomendo fortemente implementar outras funções se necessário aqui.
 
 
