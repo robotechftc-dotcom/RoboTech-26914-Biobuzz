@@ -12,12 +12,15 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
 
 @TeleOp
 public class Tuning extends OpMode {
+    private boolean backA = true, first = true;
+    private Intake intake;
 
     private Shooter shooter;
     private EasyGamepad pad;
@@ -39,6 +42,22 @@ public class Tuning extends OpMode {
 
         double targetRPM = pad.bToggle() ? RPMtest : 0;
         shooter.setRPM(targetRPM);
+
+        if (pad.x()) {
+            if (backA) intake.setAllPower(1);
+            else { intake.setBackPower(0); intake.setInPower(1); }
+        } else {
+            intake.setInPower(pad.leftTrigger());
+            intake.setBackPower(pad.rightTrigger());
+        }
+
+        intake.setTravaOpen(!pad.a());
+        if (pad.a()) { intake.setAllPower(1); backA = true; }
+
+        intake.setDumperOpen(pad.yToggle());
+
+        if (!first && intake.getAmp() > 5) backA = false;
+        first = false;
 
         double currentRPM = shooter.getRPM();
 
