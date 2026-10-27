@@ -9,7 +9,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class ShooterCostants {
     public static double kD = 0.0;
     public static double kI = 0;
-    public static double kP = 0.00016;
+    public static double kP = 0.00018;
     public static double kS = 0.045;
     public static double kV = 0.00015;
 
