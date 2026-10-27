@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kP;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kS;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kV;
-
+import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.RPMtest;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -29,7 +29,7 @@ public class Tuning extends OpMode {
     @Override
     public void loop() {
         pad.update();
-        Shooter.setRPM(pad.bToggle() ? 3000 : 0);
+        Shooter.setRPM(pad.bToggle() ? RPMtest : 0);
 
         telemetry.addData("kP", kP);
         telemetry.addData("k", kI);

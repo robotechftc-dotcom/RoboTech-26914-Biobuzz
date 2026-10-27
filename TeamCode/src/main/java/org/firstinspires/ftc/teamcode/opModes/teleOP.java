@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opModes;
 
+import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.RPMtest;
+
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -33,7 +35,7 @@ public class teleOP extends OpMode {
 
         follower.manual(-pad.leftStickY() * 0.3, -pad.leftStickX() * 0.3, pad.rightStickX() * 0.3);
 
-        shooter.setRPM(pad.bToggle() ? 3000 : 0);
+        shooter.setRPM(pad.bToggle() ? RPMtest : 0);
 
         telemetry.addData("b is pressed", pad.bToggle());
 
