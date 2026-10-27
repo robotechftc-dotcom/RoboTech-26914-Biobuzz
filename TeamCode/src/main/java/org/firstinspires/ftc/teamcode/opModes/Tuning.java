@@ -7,6 +7,8 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kV;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.RPMtest;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -22,6 +24,11 @@ public class Tuning extends OpMode {
 
     @Override
     public void init() {
+        telemetry = new MultipleTelemetry(
+                telemetry,
+                FtcDashboard.getInstance().getTelemetry()
+        );
+
         shooter = new Shooter(hardwareMap);
         pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, false);
     }
