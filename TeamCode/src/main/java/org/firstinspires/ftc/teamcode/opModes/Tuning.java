@@ -31,9 +31,9 @@ public class Tuning extends OpMode {
                 telemetry,
                 FtcDashboard.getInstance().getTelemetry()
         );
-
+        intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
-        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, false);
+        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true);
     }
 
     @Override
