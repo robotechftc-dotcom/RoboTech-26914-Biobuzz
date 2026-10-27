@@ -9,7 +9,6 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
@@ -17,29 +16,36 @@ import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
 
 @TeleOp
 public class Tuning extends OpMode {
-    Shooter Shooter;
-    EasyGamepad pad;
+
+    private Shooter shooter;
+    private EasyGamepad pad;
 
     @Override
     public void init() {
-        Shooter = new Shooter(hardwareMap);
+        shooter = new Shooter(hardwareMap);
         pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, false);
     }
 
     @Override
     public void loop() {
         pad.update();
-        Shooter.setRPM(pad.bToggle() ? RPMtest : 0);
+
+        double targetRPM = pad.bToggle() ? RPMtest : 0;
+        shooter.setRPM(targetRPM);
+
+        double currentRPM = shooter.getRPM();
+
+        telemetry.addData("Target RPM", targetRPM);
+        telemetry.addData("Current RPM", currentRPM);
+        telemetry.addData("Error RPM", targetRPM - currentRPM);
+        telemetry.addData("Power", shooter.getPower());
 
         telemetry.addData("kP", kP);
-        telemetry.addData("k", kI);
-        telemetry.addData("k", kD);
-        telemetry.addData("k", kS);
-        telemetry.addData("k", kV);
-        telemetry.addData("RPM shooter",Shooter.getRPM());
-        telemetry.addData("power", Shooter.getPower());
+        telemetry.addData("kI", kI);
+        telemetry.addData("kD", kD);
+        telemetry.addData("kS", kS);
+        telemetry.addData("kV", kV);
 
         telemetry.update();
-
     }
 }
