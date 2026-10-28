@@ -21,12 +21,15 @@ public class teleOP extends OpMode {
     private EasyGamepad pad;
     private boolean backA = true, first = true;
 
+
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true); // shooter começa ligado
+
+
     }
 
     @Override

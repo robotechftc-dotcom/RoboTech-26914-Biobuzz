@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kD;
+import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kF;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kI;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kP;
 import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants.kS;
@@ -9,45 +10,49 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostan
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-
-import dev.easyfamily.EasyStack.control.EasyPIDCoefficients;
-import dev.easyfamily.EasyStack.control.EasyPIDController;
+import dev.easyfamily.EasyStack.control.EasyPIDFCoefficients;
+import dev.easyfamily.EasyStack.control.EasyPIDFController;
 import dev.easyfamily.EasyStack.feedforward.FFCoefficients;
 import dev.easyfamily.EasyStack.feedforward.FFController;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotor;
+import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorGroup;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorType;
 
 
 public class Shooter {
-    private EasyMotor shooter; //Criamos objeto shooter da classe EasyMotor
-    EasyPIDCoefficients pidCoefficients; //Importante: Recomendo declarar e inicializar construtores no construtor do proprio shooter. Erro meu:
-    //Coloquei o nome de PIDFCoefficients e não de EasyPIDFCoefficients.
-    //Utilizaremos apenas pid, sem o feedforward pois vamos utilizar a parte para um sistema mais
-    //preciso e complexo.
-    EasyPIDController controller; //Criamos um objeto da classe EasyPIDController.
-    FFCoefficients ffCoefficients; //Igualmente criamos o feedforward coeficients: Podemos utilizar o PIDF, porém o F do pid é estático e não utiliza bateria como referência.
-                                    //PESQUISEM COMO FUNCIONA UM FEEDFORWARD PARA ENTENDER MELHOR!
-    FFController ffController; //criamos um controlador feedforward
+    private EasyMotor shooter, shooter2;
+    private EasyMotorGroup shooterGroup;
+
+    private EasyPIDFController controller;
+    private EasyPIDFCoefficients pidfCoefficients;
+    private FFCoefficients ffCoefficients;
+    private FFController ffController;
+
     public Shooter(HardwareMap hardwareMap) {
-        ffCoefficients = new FFCoefficients(kS, kV); //Criamos os coefficients utilizando da classe ShooterPIDF
-        pidCoefficients = new EasyPIDCoefficients(kP, kI, kD); //Criamos os coefficients utilizando da classe ShooterPIDF
-        ffController = new FFController(ffCoefficients);    //Lançamos constantes nos
-        controller = new EasyPIDController(pidCoefficients);//controladores
-        shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000) //E agora sim declaramos o shooter
-                .setDeadband(0.005) //colocamos um deadband um pouco mais baixo
-                .setVelocityController(controller) //setamos o VELOCITY controller pid
-                .setVelocityFF(ffController) //setamos o FF controller
-                .stopAndResetEncoder(); //por segurança paramos e resetamos o encoder
+        ffCoefficients = new FFCoefficients(kS, kV);
+        pidfCoefficients = new EasyPIDFCoefficients(kP, kI, kD, kF);
+        ffController = new FFController(ffCoefficients);
+        controller = new EasyPIDFController(pidfCoefficients);
+
+        shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000);
+        shooter2 = new EasyMotor(hardwareMap, "Shooter2", EasyMotorType.GOBILDA_6000).reverse();
+
+        shooterGroup = new EasyMotorGroup(shooter, shooter2)
+                .setLeaderMotor(0)
+                .crossCoupled()
+                .setDeadband(0.005)
+                .setVelocityPIDF(pidfCoefficients)
+                .setVelocityFF(ffController)
+                .stopAndResetEncoder();
     }
-    public void setRPM(double rpm) {shooter.setRPM(rpm);}
 
-    public double getRPM() {return shooter.getRPM();}
+    public void setRPM(double rpm) { shooterGroup.setRPM(rpm); }
+    public double getRPM() { return shooterGroup.getRPM(); }
+    public double getPower() { return shooterGroup.getPower(); }
+}
 
-    public double getPower() {return shooter.getPower();}
 
-    public double getCurrent() {return shooter.getCurrent(CurrentUnit.MILLIAMPS);}
-}//por fim terminamos. mas recomendo fortemente implementar outras funções se necessário aqui.
+//por fim terminamos. mas recomendo fortemente implementar outras funções se necessário aqui.
 
 
 
