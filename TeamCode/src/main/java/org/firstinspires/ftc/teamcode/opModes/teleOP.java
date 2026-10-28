@@ -27,7 +27,7 @@ public class teleOP extends OpMode {
         follower = Constants.create(hardwareMap);
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
-        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true); // shooter começa ligado
+        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true).setToggle(EasyGamepad.Button.Y, true); // shooter começa ligado e o dumper começa para cima
 
 
     }

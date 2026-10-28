@@ -10,9 +10,9 @@ public class ShooterCostants {
     public static double kF = 0.00;
     public static double kD = 0.0;
     public static double kI = 0;
-    public static double kP = 0.00018;
-    public static double kS = 0.045;
-    public static double kV = 0.00015;
+    public static double kP = 0.00001;
+    public static double kS = 0.12;
+    public static double kV = 0.000550;
 
-    public static double RPMtest = 3200;
+    public static double RPMtest = 2500;
 }
