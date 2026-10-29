@@ -23,10 +23,10 @@ public class Shooter {
     private EasyMotor shooter, shooter2;
     private EasyMotorGroup shooterGroup;
 
-    private EasyPIDFController controller;
-    private EasyPIDFCoefficients pidfCoefficients;
-    private FFCoefficients ffCoefficients;
-    private FFController ffController;
+    public EasyPIDFController controller;
+    public EasyPIDFCoefficients pidfCoefficients;
+    public FFCoefficients ffCoefficients;
+    public FFController ffController;
 
     public Shooter(HardwareMap hardwareMap) {
         ffCoefficients = new FFCoefficients(kS, kV);
