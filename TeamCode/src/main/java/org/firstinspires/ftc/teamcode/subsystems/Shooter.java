@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import dev.easyfamily.EasyStack.control.EasyPIDFCoefficients;
 import dev.easyfamily.EasyStack.control.EasyPIDFController;
-import dev.easyfamily.EasyStack.feedforward.FFCoefficients;
-import dev.easyfamily.EasyStack.feedforward.FFController;
+import dev.easyfamily.EasyStack.feedforward.EasyFFCoefficients;
+import dev.easyfamily.EasyStack.feedforward.EasyFFController;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotor;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorGroup;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorType;
@@ -25,19 +25,20 @@ public class Shooter {
 
     public EasyPIDFController controller;
     public EasyPIDFCoefficients pidfCoefficients;
-    public FFCoefficients ffCoefficients;
-    public FFController ffController;
+    public EasyFFCoefficients ffCoefficients;
+    public EasyFFController ffController;
 
     public Shooter(HardwareMap hardwareMap) {
-        ffCoefficients = new FFCoefficients(kS, kV);
+        ffCoefficients = new EasyFFCoefficients(kS, kV);
         pidfCoefficients = new EasyPIDFCoefficients(kP, kI, kD, kF);
-        ffController = new FFController(ffCoefficients);
+        ffController = new EasyFFController(ffCoefficients);
         controller = new EasyPIDFController(pidfCoefficients);
 
         shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000);
         shooter2 = new EasyMotor(hardwareMap, "Shooter2", EasyMotorType.GOBILDA_6000).reverse();
 
         shooterGroup = new EasyMotorGroup(shooter, shooter2)
+                .setEncoderReversed(true) //talvez o pid esteja invertido: target rpm 3500 e o rpm sendo negativo. Resultado: rpm indo ao infinito. EncoderReverse inverte a leitura de - para +.
                 .setLeaderMotor(0)
                 .crossCoupled()
                 .setDeadband(0.005)
