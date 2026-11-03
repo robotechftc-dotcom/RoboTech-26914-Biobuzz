@@ -20,8 +20,8 @@ import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorType;
 
 
 public class Shooter {
-    private EasyMotor shooter, shooter2;
-    private EasyMotorGroup shooterGroup;
+    public EasyMotor shooter, shooter2;
+    public EasyMotorGroup shooterGroup;
 
     public EasyPIDFController controller;
     public EasyPIDFCoefficients pidfCoefficients;

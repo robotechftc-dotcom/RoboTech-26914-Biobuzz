@@ -17,17 +17,17 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 import dev.easyfamily.EasyStack.control.EasyPIDFCoefficients;
-import dev.easyfamily.EasyStack.feedforward.FFCoefficients;
-import dev.easyfamily.EasyStack.feedforward.FFController;
+import dev.easyfamily.EasyStack.feedforward.EasyFFCoefficients;
+import dev.easyfamily.EasyStack.feedforward.EasyFFController;
 import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
 
 @TeleOp
 public class Tuning extends OpMode {
     private boolean backA = true, first = true;
     private Intake intake;
-    private Shooter pidfCoefficients;
-    private Shooter ffCoefficients;
-    private Shooter ffController;
+    private EasyPIDFCoefficients pidfCoefficients;
+    private EasyFFCoefficients ffCoefficients;
+    private EasyFFController ffController;
     private Shooter shooter;
     private EasyGamepad pad;
 
@@ -40,9 +40,9 @@ public class Tuning extends OpMode {
         intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true);
-        ffCoefficients = new Shooter(kS, kV);
+        ffCoefficients = new EasyFFCoefficients(kS, kV);
         pidfCoefficients = new EasyPIDFCoefficients(kP, kI, kD, kF);
-        ffController = new Shooter(ffCoefficients);
+        ffController = new EasyFFController(ffCoefficients);
 
     }
 
@@ -51,7 +51,7 @@ public class Tuning extends OpMode {
         pad.update();
 
         double targetRPM = pad.bToggle() ? RPMtest : 0;
-        shooter.setVelocityPIDF(pidfCoefficients)
+        shooter.shooterGroup.setVelocityPIDF(pidfCoefficients)
                 .setVelocityFF(ffController);
         shooter.setRPM(targetRPM);
 
