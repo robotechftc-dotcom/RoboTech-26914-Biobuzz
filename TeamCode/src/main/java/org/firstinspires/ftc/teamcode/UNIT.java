@@ -25,15 +25,15 @@ public class UNIT extends OpMode //classe
     }
 
     @Override
-    public void init_loop() {// init_loob define o que vai rodar em loop quando o robô ser iniciado
+    public void init_loop() {// init_loop define o que vai rodar em loop quando o robô ser iniciado
     }
 
     @Override
-    public void start() {// init_loob define o que vai rodar uma vez quando for pressionado start
+    public void start() {// start define o que vai rodar uma vez quando for pressionado start
     }
 
     @Override
-    public void loop() {// init_loob define o que vai rodar em loop quando for pressionado start
+    public void loop() {// loop define o que vai rodar em loop quando for pressionado start
         //declaração das variáveis
         double leftPower;
         double rightPower;
