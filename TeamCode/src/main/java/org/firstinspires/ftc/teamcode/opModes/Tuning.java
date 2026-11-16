@@ -23,10 +23,7 @@ import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
 
 @TeleOp
 public class Tuning extends OpMode {
-    private boolean backA = true, first = true;
-    private Intake intake;
-    private EasyPIDFCoefficients pidfCoefficients;
-    private EasyFFCoefficients ffCoefficients;
+
     private EasyFFController ffController;
     private Shooter shooter;
     private EasyGamepad pad;
@@ -37,12 +34,8 @@ public class Tuning extends OpMode {
                 telemetry,
                 FtcDashboard.getInstance().getTelemetry()
         );
-        intake = new Intake(hardwareMap);
         shooter = new Shooter(hardwareMap);
         pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true);
-        ffCoefficients = new EasyFFCoefficients(kS, kV);
-        pidfCoefficients = new EasyPIDFCoefficients(kP, kI, kD, kF);
-        ffController = new EasyFFController(ffCoefficients);
 
     }
 
@@ -51,25 +44,7 @@ public class Tuning extends OpMode {
         pad.update();
 
         double targetRPM = pad.bToggle() ? RPMtest : 0;
-        shooter.shooterGroup.setVelocityPIDF(pidfCoefficients)
-                .setVelocityFF(ffController);
         shooter.setRPM(targetRPM);
-
-        if (pad.x()) {
-            if (backA) intake.setAllPower(1);
-            else { intake.setBackPower(0); intake.setInPower(1); }
-        } else {
-            intake.setInPower(pad.leftTrigger());
-            intake.setBackPower(pad.rightTrigger());
-        }
-
-        intake.setTravaOpen(!pad.a());
-        if (pad.a()) { intake.setAllPower(1); backA = true; }
-
-        intake.setDumperOpen(pad.yToggle());
-
-        if (!first && intake.getAmp() > 5) backA = false;
-        first = false;
 
         double currentRPM = shooter.getRPM();
 

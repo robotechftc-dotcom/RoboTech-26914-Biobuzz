@@ -16,6 +16,8 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 public class Constants {
 
     public static double kPLF = 0.2;
@@ -37,31 +39,28 @@ public class Constants {
     public static double kV = 0.063;
     public static double offsetPod = 4.866;
 
-    public static MecanumConfig driveConfig = new MecanumConfig(
-            c -> {
-                c.frontLeftName.set("m0");
-                c.backLeftName.set("m1");
-                c.frontRightName.set("m2");
-                c.backRightName.set("m3");
-
-                c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
-                c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
-                c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
-                c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
-            }
-    );
+    public static MecanumConfig driveConfig = new MecanumConfig(c -> {
+        c.frontLeftName.set("m3");
+        c.frontRightName.set("m1");
+        c.backLeftName.set("m2");
+        c.backRightName.set("m0");
+        c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD);
+        c.frontRightDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
+        c.backRightDirection.set(DcMotorSimple.Direction.REVERSE);
+    });
 
     // CONFIGURAÇÃO DO PINPOINT
-    public static PinpointConfig localizerConfig = new PinpointConfig(
-            c -> {
-                c.name.set("pinpoint");
-                c.xPodOffset.set(2.187);
-                c.yPodOffset.set(-4.572);
-                c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
-                c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
-            }
-    );
-
+    public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
+        c.name.set("pinpoint");
+        c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        c.xPodOffset.set(-3.84893642635796);
+        c.yPodOffset.set(0.3131999931936189);
+        c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        c.globalDistanceUnit.set(DistanceUnit.INCH);
+        c.offsetUnits.set(DistanceUnit.INCH);
+    });
     // CONFIGURAÇÃO DO FORESIGHT
     public static ForesightConfig foresightConfig = new ForesightConfig(
             c -> {
