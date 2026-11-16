@@ -17,7 +17,6 @@ import dev.easyfamily.EasyStack.feedforward.EasyFFController;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotor;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorGroup;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorType;
-import dev.easyfamily.EasyStack.wpiLibControllers.EasyBangBangController;
 
 
 public class Shooter {
