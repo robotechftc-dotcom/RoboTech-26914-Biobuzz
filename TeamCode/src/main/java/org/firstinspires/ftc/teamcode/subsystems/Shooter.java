@@ -17,6 +17,7 @@ import dev.easyfamily.EasyStack.feedforward.EasyFFController;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotor;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorGroup;
 import dev.easyfamily.EasyStack.hardware.Motors.EasyMotorType;
+import dev.easyfamily.EasyStack.wpiLibControllers.EasyBangBangController;
 
 
 public class Shooter {
@@ -38,11 +39,10 @@ public class Shooter {
         shooter2 = new EasyMotor(hardwareMap, "Shooter2", EasyMotorType.GOBILDA_6000).reverse();
 
         shooterGroup = new EasyMotorGroup(shooter, shooter2)
+                .setEncoderStrategy(EasyMotorGroup.EncoderStrategy.LEADER_ONLY)
                 .reverse()
                 .setEncoderReversed(false) //talvez o pid esteja invertido: target rpm 3500 e o rpm sendo negativo. Resultado: rpm indo ao infinito. EncoderReverse inverte a leitura de - para +.
                 .setLeaderMotor(0)
-                .crossCoupled()
-                .setDeadband(0.005)
                 .setVelocityPIDF(pidfCoefficients)
                 .setVelocityFF(ffController)
                 .stopAndResetEncoder();

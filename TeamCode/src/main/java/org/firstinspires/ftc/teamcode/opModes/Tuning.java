@@ -42,7 +42,7 @@ public class Tuning extends OpMode {
     @Override
     public void loop() {
         pad.update();
-
+        shooter.shooterGroup.setVelocityPIDF(kP, kI, kD, kF).setVelocityFF(kS, kV);
         double targetRPM = pad.bToggle() ? RPMtest : 0;
         shooter.setRPM(targetRPM);
 
