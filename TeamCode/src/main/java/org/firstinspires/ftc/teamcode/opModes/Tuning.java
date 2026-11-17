@@ -13,10 +13,12 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.Constantes.ShooterCostants;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 import dev.easyfamily.EasyStack.control.EasyPIDFCoefficients;
+import dev.easyfamily.EasyStack.dashboard.EasyDash;
 import dev.easyfamily.EasyStack.feedforward.EasyFFCoefficients;
 import dev.easyfamily.EasyStack.feedforward.EasyFFController;
 import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
@@ -35,7 +37,7 @@ public class Tuning extends OpMode {
                 FtcDashboard.getInstance().getTelemetry()
         );
         shooter = new Shooter(hardwareMap);
-        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, true);
+        pad = new EasyGamepad(gamepad1).setToggle(EasyGamepad.Button.B, false);
 
     }
 
@@ -60,5 +62,6 @@ public class Tuning extends OpMode {
         telemetry.addData("kV", kV);
 
         telemetry.update();
+        EasyDash.tunables(ShooterCostants.class);
     }
 }

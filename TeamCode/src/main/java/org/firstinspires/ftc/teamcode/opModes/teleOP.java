@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
-import dev.easyfamily.EasyStack.drivebase.MecanumDrive;
 import dev.easyfamily.EasyStack.gamepad.EasyGamepad;
 
 @TeleOp(name = "TeleOp")
@@ -21,7 +20,6 @@ public class teleOP extends OpMode {
     private Shooter shooter;
     private EasyGamepad pad;
     private boolean backA = true, first = true;
-    MecanumDrive mecanumDrive;
 
     @Override
     public void init() {

@@ -46,8 +46,8 @@ public class Shooter {
                 .setVelocityFF(ffController)
                 .stopAndResetEncoder();
     }
-
-    public void setRPM(double rpm) { shooterGroup.setRPM(rpm); }
+    //public void setRPM(double rpm) { shooterGroup.setRPM(rpm); }
+    public static void setRPM(double rpm) { Shooter.setRPM(rpm); }
     public double getRPM() { return shooterGroup.getRPM(); }
     public double getPower() { return shooterGroup.getPower(); }
 }
