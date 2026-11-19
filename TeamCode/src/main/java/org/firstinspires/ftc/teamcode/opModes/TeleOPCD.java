@@ -34,7 +34,7 @@ public class TeleOPCD extends OpMode {
     public void loop() {
         pad.update(); // obrigatório no início de todo loop
 
-        follower.manual(-pad.leftStickY() * 0.3, pad.leftStickX() * 0.3, pad.rightStickX() * 0.3);
+        follower.manual(-pad.leftStickY(), pad.leftStickX() , pad.rightStickX());
 
 
         if (pad.x()) {

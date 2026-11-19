@@ -25,7 +25,7 @@ public class Intake{
     EasyServo Blocker;
     public Intake(HardwareMap hardwareMap) {
         motorIntake1 = new EasyMotor(hardwareMap, "INT1"); //declaramos os motores individuais
-        motorIntake2 = new EasyMotor(hardwareMap, "INT2");
+        motorIntake2 = new EasyMotor(hardwareMap, "INT2").reverse();
         Intake = new EasyMotorGroup(motorIntake1, motorIntake2); //vi que estavam -1, então declaramos todos como reverso.
         Blocker = new EasyServo(hardwareMap, "INTtrava")
                 .addState("Aberto", 1) //adicionamos estados abertos e fechados
