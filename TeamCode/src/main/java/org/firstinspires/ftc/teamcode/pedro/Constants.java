@@ -40,10 +40,10 @@ public class Constants {
     public static double offsetPod = 4.866;
 
     public static MecanumConfig driveConfig = new MecanumConfig(c -> {
-        c.frontLeftName.set("m3");
-        c.frontRightName.set("m1");
-        c.backLeftName.set("m2");
-        c.backRightName.set("m0");
+        c.frontLeftName.set("m0");
+        c.frontRightName.set("m2");
+        c.backLeftName.set("m1");
+        c.backRightName.set("m3");
         c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD);
         c.frontRightDirection.set(DcMotorSimple.Direction.REVERSE);
         c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
