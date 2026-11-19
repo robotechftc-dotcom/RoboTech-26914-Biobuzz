@@ -36,7 +36,7 @@ public class teleOP extends OpMode {
     public void loop() {
         pad.update(); // obrigatório no início de todo loop
 
-        follower.manual(-pad.leftStickY() * 1, pad.leftStickX() * 1, pad.rightStickX() * 1);
+        follower.manual(-pad.leftStickY() * 0.3, pad.leftStickX() * 0.3, pad.rightStickX() * 0.3);
 
         shooter.setRPM(pad.bToggle() ? RPMtest : 0);
 
