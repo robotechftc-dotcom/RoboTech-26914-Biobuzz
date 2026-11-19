@@ -34,8 +34,8 @@ public class Shooter {
         ffController = new EasyFFController(ffCoefficients);
         controller = new EasyPIDFController(pidfCoefficients);
 
-        shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000);
-        shooter2 = new EasyMotor(hardwareMap, "Shooter2", EasyMotorType.GOBILDA_6000).reverse();
+        shooter = new EasyMotor(hardwareMap, "Shooter", EasyMotorType.GOBILDA_6000).reverse();
+        shooter2 = new EasyMotor(hardwareMap, "Shooter2", EasyMotorType.GOBILDA_6000);
 
         shooterGroup = new EasyMotorGroup(shooter, shooter2)
                 .setEncoderStrategy(EasyMotorGroup.EncoderStrategy.LEADER_ONLY)
@@ -47,9 +47,11 @@ public class Shooter {
                 .stopAndResetEncoder();
     }
     //public void setRPM(double rpm) { shooterGroup.setRPM(rpm); }
-    public static void setRPM(double rpm) { Shooter.setRPM(rpm); }
-    public double getRPM() { return shooterGroup.getRPM(); }
-    public double getPower() { return shooterGroup.getPower(); }
+    public void setRPM(double rpm) { shooter.setRPM(rpm); }
+    //public double getRPM() { return shooterGroup.getRPM(); }
+    public double getRPM() { return shooter.getRPM(); }
+    //public double getPower() { return shooterGroup.getPower(); }
+    public double getPower() { return shooter.getPower(); }
 }
 
 
